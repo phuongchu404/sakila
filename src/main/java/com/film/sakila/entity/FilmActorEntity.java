@@ -11,6 +11,8 @@ public class FilmActorEntity {
     @EmbeddedId
     private FilmActorId id;
 
-    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("actorId")
+    private ActorEntity actorId;
 
 }
