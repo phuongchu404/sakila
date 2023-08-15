@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Data
@@ -13,7 +13,8 @@ import java.sql.Timestamp;
 public class ActorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int actorId;
+    @Column(name = "actorId")
+    private int id;
 
     @Column(name = "firstName")
     private String firstName;
@@ -23,5 +24,6 @@ public class ActorEntity {
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp
-    private Timestamp lastUpdate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
 }

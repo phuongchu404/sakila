@@ -9,9 +9,10 @@ import lombok.Data;
 public class FilmTextEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int filmId;
+    @Column(name = "filmId")
+    private int id;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 255)
     private String title;
 
     @Column(name = "description")

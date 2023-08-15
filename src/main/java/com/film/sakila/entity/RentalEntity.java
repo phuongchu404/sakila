@@ -2,9 +2,11 @@ package com.film.sakila.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "rental")
@@ -12,23 +14,35 @@ import java.util.Date;
 public class RentalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rentalId;
+    @Column(name = "rentalId")
+    private int id;
 
     @Column(name = "rentalDate")
     private Date rentalDate;
 
-    @Column(name = "inventoryId")
-    private int inventoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inventory_id")
+    private InventoryEntity inventory;
 
-    @Column(name = "customerId")
-    private int customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private CustomerEntity customer;
 
     @Column(name = "returnDate")
     private Date returnDate;
 
-    @Column(name = "staffId")
-    private int staffId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "staff_id")
+    private StaffEntity staff;
 
     @Column(name = "lastUpdate")
-    private Timestamp lastUpdate;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+
+
+
+
+
+
 }

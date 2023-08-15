@@ -5,7 +5,6 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -14,22 +13,25 @@ import java.util.Date;
 public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int customerId;
+    @Column(name = "customerId")
+    private int id;
 
-    @Column(name = "storeId")
-    private int storeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private StoreEntity store;
 
-    @Column(name = "firstName")
+    @Column(name = "firstName", length = 45)
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastName", length = 45)
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "addressId")
-    private int addressId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private AddressEntity address;
 
     @Column(name = "active")
     private int active;
@@ -40,5 +42,7 @@ public class CustomerEntity {
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp
-    private Timestamp lastUpdate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+
 }

@@ -2,8 +2,11 @@ package com.film.sakila.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "language")
@@ -11,11 +14,14 @@ import java.sql.Timestamp;
 public class LanguageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int languageId;
+    @Column(name = "languageId")
+    private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 20)
     private String name;
 
     @Column(name = "lastUpdate")
-    private Timestamp lastUpdate;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
 }

@@ -2,8 +2,12 @@ package com.film.sakila.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.time.Year;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "film")
@@ -11,9 +15,10 @@ import java.time.Year;
 public class FilmEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int filmId;
+    @Column(name = "filmId")
+    private int id;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 128)
     private String title;
 
     @Column(name = "description")
@@ -22,24 +27,34 @@ public class FilmEntity {
     @Column(name = "releaseYear")
     private Year releaseYear;
 
-    @Column(name = "languageId")
-    private int languageId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "languageId")
+    private LanguageEntity language;
 
-    @Column(name = "originalLanguageId")
-    private int originalLanguageId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "originalLanguageId")
+    private LanguageEntity originalLanguage;
 
     @Column(name = "rentalDuration")
     private int rentalDuration;
 
     @Column(name = "rentalRate")
-    private Double rentalRate;
+    private double rentalRate;
 
     @Column(name = "length")
     private int length;
 
     @Column(name = "replacementCost")
-    private Double replacementCost;
+    private double replacementCost;
 
 //    @Column(name = "rating")
 //    private
+
+//    @Column(name = "specialFeatures")
+//    private
+
+    @Column(name = "lastUpdate")
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
 }

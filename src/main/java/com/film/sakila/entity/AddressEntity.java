@@ -3,36 +3,45 @@ package com.film.sakila.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CurrentTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
+@Table(name = "address")
 public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int addressId;
+    @Column(name = "addressId")
+    private int id;
 
-    @Column(name = "address")
+    @Column(name = "address", length = 50)
     private String address;
 
-    @Column(name = "address2")
+    @Column(name = "address2", length = 50)
     private String address2;
 
-    @Column(name = "district")
+    @Column(name = "district", length = 20)
     private String district;
 
-    @Column(name = "cityId")
-    private int cityId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private CityEntity city;
 
-    @Column(name = "postalCode")
+    @Column(name = "postalCode", length = 10)
     private String postalCode;
 
-    @Column(name = "phone")
+    @Column(name = "phone", length = 20)
     private String phone;
 
 //    @Column(name = "location")
 //    private Geomery
     @Column(name = "lastUpdate")
-    private Timestamp lastUpdate;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+
 }

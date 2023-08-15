@@ -2,8 +2,12 @@ package com.film.sakila.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Blob;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "staff")
@@ -11,18 +15,42 @@ import java.sql.Blob;
 public class StaffEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int staffId;
+    @Column(name = "staffId")
+    private int id;
 
-    @Column(name = "firstName")
+    @Column(name = "firstName", length = 45)
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastName", length = 45)
     private String lastName;
 
-    @Column(name = "addressId")
-    private int addressId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private AddressEntity address;
 
     @Column(name = "picture")
     @Lob
     private Blob picture;
+
+    @Column(name = "email", length = 50)
+    private String email;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private StoreEntity store;
+
+    @Column(name = "active")
+    private int active;
+
+    @Column(name = "username", length = 16)
+    private String userName;
+
+    @Column(name = "password", length = 40)
+    private String password;
+
+    @Column(name = "lastUpdate")
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+
 }

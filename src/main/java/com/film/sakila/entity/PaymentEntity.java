@@ -2,6 +2,7 @@ package com.film.sakila.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -12,16 +13,20 @@ import java.util.Date;
 public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int paymentId;
+    @Column(name = "paymentId")
+    private int id;
 
-    @Column(name = "customerId")
-    private int customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private CustomerEntity customer;
 
-    @Column(name = "staffId")
-    private int staffId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "staff_id")
+    private StaffEntity staff;
 
-    @Column(name = "rentalId")
-    private int rentalId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rental_id")
+    private RentalEntity rental;
 
     @Column(name = "amount")
     private double amount;
@@ -30,5 +35,11 @@ public class PaymentEntity {
     private Date paymentDate;
 
     @Column(name = "lastUpdate")
-    private Timestamp lastUpdate;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+
+
+
+
 }

@@ -2,8 +2,9 @@ package com.film.sakila.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "country")
@@ -11,11 +12,14 @@ import java.sql.Timestamp;
 public class CountryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int coutryId;
+    @Column(name = "countryId")
+    private int id;
 
     @Column(name = "country")
     private String country;
 
     @Column(name = "lastUpdate")
-    private Timestamp lastUpdate;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
 }

@@ -2,8 +2,11 @@ package com.film.sakila.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "store")
@@ -11,14 +14,20 @@ import java.sql.Timestamp;
 public class StoreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int storeId;
+    @Column(name = "storeId")
+    private int id;
 
-    @Column(name = "managerStaffId")
-    private int managerStaffId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_staff_id")
+    private StaffEntity staff;
 
-    @Column(name = "addressId")
-    private int addressId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private AddressEntity address;
 
     @Column(name = "lastUpdate")
-    private Timestamp lastUpdate;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+
 }
