@@ -1,5 +1,6 @@
 package com.film.sakila.entity;
 
+import com.film.sakila.entity.enumtype.FilmEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -47,8 +48,9 @@ public class FilmEntity {
     @Column(name = "replacementCost")
     private double replacementCost;
 
-//    @Column(name = "rating")
-//    private
+    @Column(name = "rating")
+    @Enumerated(EnumType.STRING)
+    private FilmEnum rating;
 
 //    @Column(name = "specialFeatures")
 //    private
