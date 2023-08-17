@@ -41,8 +41,11 @@ public class AddressEntity{
     @Column(name = "phone", length = 20)
     private String phone;
 
+//    @Column(name = "location", columnDefinition = "GEOMETRY")
+//    private Geometry location;
+
     @Column(name = "location", columnDefinition = "GEOMETRY")
-    private Geometry location;
+    private byte[] location;
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp

@@ -21,18 +21,18 @@ public class RentalEntity {
     @Column(name = "rentalDate")
     private Date rentalDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "inventory_id")
     private InventoryEntity inventory;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
 
     @Column(name = "returnDate")
     private Date returnDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "staff_id")
     private StaffEntity staff;
 

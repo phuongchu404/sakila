@@ -18,11 +18,11 @@ public class InventoryEntity{
     @Column(name = "inventoryId")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "store_id")
     private StoreEntity store;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "film_id")
     private FilmEntity film;
 

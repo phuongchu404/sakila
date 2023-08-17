@@ -18,11 +18,11 @@ public class StoreEntity {
     @Column(name = "storeId")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "manager_staff_id")
     private StaffEntity staff;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 

@@ -17,12 +17,12 @@ public class FilmCategoryEntity{
     @EmbeddedId
     private FilmCategoryId filmCategoryId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("filmId")
     @JoinColumn(name = "film_id")
     private FilmEntity film;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("categoryId")
     @JoinColumn(name = "category_id")
     private CategoryEntity category;

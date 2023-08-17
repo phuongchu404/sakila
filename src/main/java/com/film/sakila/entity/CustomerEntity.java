@@ -18,7 +18,7 @@ public class CustomerEntity{
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "store_id", nullable = false)
+    @JoinColumn(name = "store_id")
     private StoreEntity store;
 
     @Column(name = "firstName", length = 45)

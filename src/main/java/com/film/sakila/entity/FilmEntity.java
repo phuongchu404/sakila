@@ -31,11 +31,11 @@ public class FilmEntity{
     @Column(name = "releaseYear")
     private Year releaseYear;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "languageId")
     private LanguageEntity language;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "originalLanguageId")
     private LanguageEntity originalLanguage;
 

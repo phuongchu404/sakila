@@ -25,7 +25,7 @@ public class StaffEntity {
     @Column(name = "lastName", length = 45)
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
@@ -36,7 +36,7 @@ public class StaffEntity {
     @Column(name = "email", length = 50)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "store_id")
     private StoreEntity store;
 
