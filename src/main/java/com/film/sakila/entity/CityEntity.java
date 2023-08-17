@@ -2,14 +2,16 @@ package com.film.sakila.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
 @Table(name = "city")
 @Data
-public class CityEntity {
+public class CityEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cityId")
@@ -19,9 +21,11 @@ public class CityEntity {
     private String city;
 
     @Column(name = "lastUpdate")
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp lastUpdate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "country_id")
     private CountryEntity country;
 }

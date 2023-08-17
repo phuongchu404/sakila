@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -39,7 +40,7 @@ public class StaffEntity {
     @JoinColumn(name = "store_id")
     private StoreEntity store;
 
-    @Column(name = "active")
+    @Column(name = "active", columnDefinition = "TINYINT(1) default 1")
     private int active;
 
     @Column(name = "username", length = 16)

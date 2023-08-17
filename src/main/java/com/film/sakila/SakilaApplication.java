@@ -1,6 +1,8 @@
 package com.film.sakila;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,11 +19,11 @@ public class SakilaApplication {
         SpringApplication.run(SakilaApplication.class, args);
     }
     @Bean
-    public SessionFactory sessionFactory(EntityManagerFactory entityManagerFactory) {
-        if (entityManagerFactory.unwrap(SessionFactory.class) == null) {
+    public Session sessionFactory(EntityManager entityManager) {
+        if (entityManager.unwrap(Session.class) == null) {
             throw new NullPointerException("EntityManagerFactory is not a Hibernate EntityManagerFactory");
         }
-        return entityManagerFactory.unwrap(SessionFactory.class);
+        return entityManager.unwrap(Session.class);
     }
 
 }

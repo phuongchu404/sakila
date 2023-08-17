@@ -1,6 +1,6 @@
 package com.film.sakila.entity.enumtype;
 
-public enum FilmEnum {
+public enum RatingEnum {
     G("G"),PG("PG"), PG_13("PG-13"), R("R"), NC_17("NC-17");
     private String value;
 
@@ -10,7 +10,7 @@ public enum FilmEnum {
     public void setValue(String value){
         this.value = value;
     }
-    FilmEnum(String value){
+    RatingEnum(String value){
         this.value =  value;
     }
 }

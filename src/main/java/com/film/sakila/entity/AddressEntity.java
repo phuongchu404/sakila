@@ -1,13 +1,14 @@
 package com.film.sakila.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.spatial.dialect.mysql.MySQLGeometryJdbcType;
 import org.locationtech.jts.geom.Geometry;
 import org.springframework.data.geo.Point;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "address")
-public class AddressEntity {
+public class AddressEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "addressId")
@@ -30,7 +31,7 @@ public class AddressEntity {
     @Column(name = "district", length = 20)
     private String district;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "city_id")
     private CityEntity city;
 
@@ -40,7 +41,7 @@ public class AddressEntity {
     @Column(name = "phone", length = 20)
     private String phone;
 
-    @Column(name = "location", columnDefinition = "Geometry")
+    @Column(name = "location", columnDefinition = "GEOMETRY")
     private Geometry location;
 
     @Column(name = "lastUpdate")

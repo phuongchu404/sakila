@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Table(name = "film_category")
 @Data
-public class FilmCategoryEntity {
+public class FilmCategoryEntity{
 
     @EmbeddedId
     private FilmCategoryId filmCategoryId;

@@ -14,7 +14,7 @@
     <name>sakila</name>
     <description>sakila</description>
     <properties>
-        <java.version>8</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -59,20 +59,29 @@
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-spatial -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-spatial</artifactId>
-            <version>6.3.0.CR1</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/lib/hibernate-spatial-6.3.0.CR1.jar</systemPath>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate</groupId>-->
+<!--            <artifactId>hibernate-spatial</artifactId>-->
+<!--            <version>6.3.0.CR1</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/lib/hibernate-spatial-6.3.0.CR1.jar</systemPath>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.locationtech.jts</groupId>
             <artifactId>jts-core</artifactId>
             <version>1.19.0</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/lib/jts-core-1.19.0.jar</systemPath>
+            <systemPath>${project.basedir}/lib/jts-core-1.19.0.jar</systemPath>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.geolatte/geolatte-geom -->
+        <dependency>
+            <groupId>org.geolatte</groupId>
+            <artifactId>geolatte-geom</artifactId>
+            <version>1.9.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/geolatte-geom-1.9.1.jar</systemPath>
+        </dependency>
+
 
     </dependencies>
 
