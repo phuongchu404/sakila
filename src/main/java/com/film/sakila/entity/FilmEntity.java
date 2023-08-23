@@ -1,16 +1,15 @@
 package com.film.sakila.entity;
 
-import com.film.sakila.entity.enumtype.RatingEnum;
-import com.film.sakila.entity.enumtype.SpecialFeatureEnum;
+import com.film.sakila.coverter.SpecialFeatureEnumConverter;
+import com.film.sakila.status.RatingEnum;
+import com.film.sakila.status.SpecialFeatureEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.Year;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -52,15 +51,37 @@ public class FilmEntity{
     private double replacementCost;
 
     @Column(name = "rating", columnDefinition = "ENUM('G','PG','PG-13','R','NC-17') default 'G'")
-    @Enumerated(EnumType.STRING)
-    private RatingEnum rating;
+    private RatingEnum rating = RatingEnum.NC_17;
 
-    @Column(name = "specialFeatures")
-    @Enumerated(EnumType.STRING)
-    private Set<SpecialFeatureEnum> specialFeatureEnums;
+    @Column(name = "specialFeatures", columnDefinition = "SET('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
+    private Set<SpecialFeatureEnum> specialFeatures;
+
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
+//    @Column(name = "rating")
+//    @Basic
+//    private String rating;
+
+//    @Transient
+//    private RatingEnum ratingEnum;
+//
+//    @PostLoad
+//    private void fillTransient(){
+//        if(rating!=null){
+//            this.ratingEnum = RatingEnum.of(rating);
+//        }
+//    }
+
+//    @PrePersist
+//    void fillPersist(){
+//        if(ratingEnum!=null){
+//            this.rating = ratingEnum.getValue();
+//        }
+//    }
+
+
+
 }

@@ -1,17 +1,10 @@
 package com.film.sakila.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.locationtech.jts.geom.Geometry;
-import org.springframework.data.geo.Point;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -44,8 +37,8 @@ public class AddressEntity{
 //    @Column(name = "location", columnDefinition = "GEOMETRY")
 //    private Geometry location;
 
-    @Column(name = "location", columnDefinition = "GEOMETRY")
-    private byte[] location;
+//    @Column(name = "location", columnDefinition = "GEOMETRY")
+//    private Geometry location;
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp

@@ -1,12 +1,10 @@
 package com.film.sakila.entity;
 
-import com.film.sakila.entity.compositeId.FilmCategoryId;
+import com.film.sakila.entity.composite.id.FilmCategoryId;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
