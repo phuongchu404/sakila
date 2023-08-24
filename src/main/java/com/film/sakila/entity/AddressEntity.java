@@ -3,6 +3,10 @@ package com.film.sakila.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
 
 import java.util.Date;
 
@@ -37,12 +41,14 @@ public class AddressEntity{
 //    @Column(name = "location", columnDefinition = "GEOMETRY")
 //    private Geometry location;
 
-//    @Column(name = "location", columnDefinition = "GEOMETRY")
-//    private Geometry location;
+    @Column(name = "location", columnDefinition = "GEOMETRY")
+    private Point location;
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
+
+
 
 }

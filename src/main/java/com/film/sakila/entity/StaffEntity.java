@@ -4,11 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.io.Serializable;
 import java.sql.Blob;
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "staff")
@@ -29,24 +26,24 @@ public class StaffEntity {
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-    @Column(name = "picture")
     @Lob
-    private Blob picture;
+    @Column(name = "picture", columnDefinition = "BLOB")
+    private byte[] picture;
 
-    @Column(name = "email", length = 50)
+    @Column(name = "email")
     private String email;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
     private StoreEntity store;
 
-    @Column(name = "active", columnDefinition = "TINYINT(1) default 1")
+    @Column(name = "active")
     private int active;
 
-    @Column(name = "username", length = 16)
+    @Column(name = "username")
     private String userName;
 
-    @Column(name = "password", length = 40)
+    @Column(name = "password")
     private String password;
 
     @Column(name = "lastUpdate")

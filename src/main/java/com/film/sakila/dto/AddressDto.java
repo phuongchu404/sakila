@@ -2,6 +2,7 @@ package com.film.sakila.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.locationtech.jts.geom.Point;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,11 +18,14 @@ public class AddressDto {
     private int cityId;
     private String postalCode;
     private String phone;
+    private String location;
+    private double locationX;
+    private double locationY;
     private String lastUpdate;
 
 
     public AddressDto(int id, String address, String address2, String district, int cityId,
-                      String postalCode, String phone, Date lastUpdate) throws ParseException {
+                      String postalCode, String phone, Point location, Date lastUpdate) throws ParseException {
         this.id = id;
         this.address = address;
         this.address2 = address2;
@@ -29,6 +33,9 @@ public class AddressDto {
         this.cityId = cityId;
         this.postalCode = postalCode;
         this.phone = phone;
+        this.location = location.toString();
+        this.locationX= location.getX();
+        this.locationY = location.getY();
         this.lastUpdate = simpleDateFormat.format(lastUpdate);
     }
 

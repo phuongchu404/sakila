@@ -19,10 +19,6 @@ public class StoreEntity {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "manager_staff_id")
-    private StaffEntity staff;
-
-    @ManyToOne
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 

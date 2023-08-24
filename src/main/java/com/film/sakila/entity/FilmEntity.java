@@ -56,31 +56,10 @@ public class FilmEntity{
     @Column(name = "specialFeatures", columnDefinition = "SET('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
     private Set<SpecialFeatureEnum> specialFeatures;
 
-
     @Column(name = "lastUpdate")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-//    @Column(name = "rating")
-//    @Basic
-//    private String rating;
-
-//    @Transient
-//    private RatingEnum ratingEnum;
-//
-//    @PostLoad
-//    private void fillTransient(){
-//        if(rating!=null){
-//            this.ratingEnum = RatingEnum.of(rating);
-//        }
-//    }
-
-//    @PrePersist
-//    void fillPersist(){
-//        if(ratingEnum!=null){
-//            this.rating = ratingEnum.getValue();
-//        }
-//    }
 
 
 
