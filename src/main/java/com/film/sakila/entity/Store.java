@@ -10,40 +10,21 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "rental")
+@Table(name = "store")
 @Data
-public class RentalEntity {
+public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rentalId")
+    @Column(name = "storeId")
     private int id;
 
-    @Column(name = "rentalDate")
-    private Date rentalDate;
-
     @ManyToOne
-    @JoinColumn(name = "inventory_id")
-    private InventoryEntity inventory;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private CustomerEntity customer;
-
-    @Column(name = "returnDate")
-    private Date returnDate;
-
-    @ManyToOne
-    @JoinColumn(name = "staff_id")
-    private StaffEntity staff;
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-
-
-
-
-
 
 }

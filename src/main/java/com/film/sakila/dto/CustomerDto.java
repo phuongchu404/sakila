@@ -1,7 +1,5 @@
 package com.film.sakila.dto;
 
-import com.film.sakila.entity.AddressEntity;
-import com.film.sakila.entity.StoreEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

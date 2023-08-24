@@ -3,8 +3,8 @@ package com.film.sakila.service.impl;
 import com.film.sakila.coverter.RatingEnumConverter;
 import com.film.sakila.coverter.SpecialFeatureEnumConverter;
 import com.film.sakila.dto.FilmDto;
-import com.film.sakila.entity.FilmEntity;
-import com.film.sakila.entity.LanguageEntity;
+import com.film.sakila.entity.Film;
+import com.film.sakila.entity.Language;
 import com.film.sakila.repository.FilmRepository;
 import com.film.sakila.repository.LanguageRepository;
 import com.film.sakila.service.FilmService;
@@ -26,9 +26,9 @@ public class FilmServiceImpl implements FilmService {
     private LanguageRepository languageRepository;
     @Override
     public List<String> getTitle() {
-        List<FilmEntity> list = filmRepository.findAll();
+        List<Film> list = filmRepository.findAll();
         return list.stream()
-                .map(FilmEntity::getRating).
+                .map(Film::getRating).
                 map(RatingEnum::getValue).
                 collect(Collectors.toList());
     }
@@ -37,11 +37,11 @@ public class FilmServiceImpl implements FilmService {
     public void insert(String title, int languageId, String rating, Set<String> specialFeature) {
         RatingEnumConverter ratingEnumConverter = new RatingEnumConverter();
         SpecialFeatureEnumConverter specialFeatureEnumConverter = new SpecialFeatureEnumConverter();
-        LanguageEntity language = languageRepository.findById(languageId).orElseThrow(()-> new IllegalArgumentException("Language not found"));
+        Language language = languageRepository.findById(languageId).orElseThrow(()-> new IllegalArgumentException("Language not found"));
         RatingEnum ratingEnum = ratingEnumConverter.convertToEntityAttribute(rating);
         String stringspecialFeature = String.join(",", specialFeature);
         Set<SpecialFeatureEnum> specialFeatureEnums = specialFeatureEnumConverter.convertToEntityAttribute(stringspecialFeature);
-        FilmEntity film = new FilmEntity();
+        Film film = new Film();
         film.setTitle(title);
         film.setLanguage(language);
         film.setRating(ratingEnum);
@@ -51,7 +51,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<FilmDto> getAll() {
-        List<FilmEntity> filmEntities = filmRepository.findAll();
+        List<Film> filmEntities = filmRepository.findAll();
         return filmEntities.stream().map(item->{
             Set<String> specialFeatureEnums = item.getSpecialFeatures().stream().map(c->c.getValue()).collect(Collectors.toSet());
             return new FilmDto(item.getId(), item.getTitle(), item.getDescription(),

@@ -1,32 +1,36 @@
 package com.film.sakila.entity;
 
-import com.film.sakila.entity.composite.id.FilmActorId;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "film_actor")
+@Table(name = "inventory")
 @Data
-public class FilmActorEntity{
-    @EmbeddedId
-    private FilmActorId id;
+public class Inventory{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "inventoryId")
+    private int id;
 
     @ManyToOne
-    @MapsId("actorId")
-    @JoinColumn(name = "actor_id")
-    private ActorEntity actor;
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @ManyToOne
-    @MapsId("filmId")
     @JoinColumn(name = "film_id")
-    private FilmEntity film;
+    private Film film;
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
+
+
 
 }

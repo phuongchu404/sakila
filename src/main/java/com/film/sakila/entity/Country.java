@@ -5,28 +5,22 @@ import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.List;
+import java.util.Date;
 
 @Entity
-@Table(name = "city")
+@Table(name = "country")
 @Data
-public class CityEntity{
+public class Country{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cityId")
+    @Column(name = "countryId")
     private int id;
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "country")
+    private String country;
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp lastUpdate;
-
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    private CountryEntity country;
+    private Date lastUpdate;
 }
-

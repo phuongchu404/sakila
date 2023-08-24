@@ -1,9 +1,9 @@
 package com.film.sakila.repository;
 
-import com.film.sakila.entity.PaymentEntity;
+import com.film.sakila.entity.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PaymentRepository extends JpaRepository<PaymentEntity, Integer> {
+public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 }

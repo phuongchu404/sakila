@@ -2,19 +2,24 @@ package com.film.sakila.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Blob;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "staff")
+@Table(name = "customer")
 @Data
-public class StaffEntity {
+public class Customer{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "staffId")
+    @Column(name = "customerId")
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @Column(name = "firstName", length = 45)
     private String firstName;
@@ -22,29 +27,19 @@ public class StaffEntity {
     @Column(name = "lastName", length = 45)
     private String lastName;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private AddressEntity address;
-
-    @Lob
-    @Column(name = "picture", columnDefinition = "BLOB")
-    private byte[] picture;
-
-    @Column(name = "email")
+    @Column(name = "email", length = 50)
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
-    private StoreEntity store;
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     @Column(name = "active")
     private int active;
 
-    @Column(name = "username")
-    private String userName;
-
-    @Column(name = "password")
-    private String password;
+    @Column(name = "createDate")
+    @CreationTimestamp
+    private Date createDate;
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp

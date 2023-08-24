@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "address")
-public class AddressEntity{
+public class Address{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "addressId")
@@ -30,7 +30,7 @@ public class AddressEntity{
 
     @ManyToOne
     @JoinColumn(name = "city_id")
-    private CityEntity city;
+    private City city;
 
     @Column(name = "postalCode", length = 10)
     private String postalCode;

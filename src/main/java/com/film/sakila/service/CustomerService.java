@@ -1,12 +1,12 @@
 package com.film.sakila.service;
 
-import com.film.sakila.entity.CustomerEntity;
+import com.film.sakila.entity.Customer;
 
 import java.util.List;
 
 public interface CustomerService {
-    List<CustomerEntity> getAll();
+    List<Customer> getAll();
 
-    CustomerEntity findById(int id);
+    Customer findById(int id);
 
 }

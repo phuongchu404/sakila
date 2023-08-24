@@ -1,8 +1,8 @@
 package com.film.sakila.service.impl;
 
 import com.film.sakila.dto.AddressDto;
-import com.film.sakila.entity.AddressEntity;
-import com.film.sakila.entity.CityEntity;
+import com.film.sakila.entity.Address;
+import com.film.sakila.entity.City;
 import com.film.sakila.repository.AddressRepository;
 import com.film.sakila.repository.CityRepository;
 import com.film.sakila.service.AddressService;
@@ -40,14 +40,14 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<AddressEntity> findAll() {
+    public List<Address> findAll() {
         return addressRepository.findAll();
     }
 
     @Override
     public void insert(String address, String district, int cityId, String phone, String location) throws org.locationtech.jts.io.ParseException {
-        CityEntity city = cityRepository.findById(cityId).get();
-        AddressEntity addressEntity = new AddressEntity();
+        City city = cityRepository.findById(cityId).get();
+        Address addressEntity = new Address();
         addressEntity.setCity(city);
         addressEntity.setAddress(address);
         addressEntity.setDistrict(district);

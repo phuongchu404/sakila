@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "film_text")
 @Data
-public class FilmTextEntity{
+public class FilmText{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "filmId")

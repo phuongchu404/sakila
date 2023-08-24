@@ -15,7 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "film")
 @Data
-public class FilmEntity{
+public class Film{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "filmId")
@@ -32,23 +32,23 @@ public class FilmEntity{
 
     @ManyToOne
     @JoinColumn(name = "languageId")
-    private LanguageEntity language;
+    private Language language;
 
     @ManyToOne
     @JoinColumn(name = "originalLanguageId")
-    private LanguageEntity originalLanguage;
+    private Language originalLanguage;
 
     @Column(name = "rentalDuration", columnDefinition = "TINYINT default 3")
-    private int rentalDuration;
+    private int rentalDuration=3;
 
     @Column(name = "rentalRate", columnDefinition = "DECIMAL(4,2) default 4.99")
-    private double rentalRate;
+    private double rentalRate=4.99;
 
     @Column(name = "length")
     private int length;
 
     @Column(name = "replacementCost", columnDefinition = "DECIMAL(5,2) default 19.99")
-    private double replacementCost;
+    private double replacementCost=19.99D;
 
     @Column(name = "rating", columnDefinition = "ENUM('G','PG','PG-13','R','NC-17') default 'G'")
     private RatingEnum rating = RatingEnum.NC_17;

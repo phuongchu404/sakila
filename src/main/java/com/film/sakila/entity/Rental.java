@@ -7,38 +7,41 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "payment")
+@Table(name = "rental")
 @Data
-public class PaymentEntity {
+public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "paymentId")
+    @Column(name = "rentalId")
     private int id;
+
+    @Column(name = "rentalDate")
+    private Date rentalDate;
+
+    @ManyToOne
+    @JoinColumn(name = "inventory_id")
+    private Inventory inventory;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private CustomerEntity customer;
+    private Customer customer;
+
+    @Column(name = "returnDate")
+    private Date returnDate;
 
     @ManyToOne
     @JoinColumn(name = "staff_id")
-    private StaffEntity staff;
-
-    @ManyToOne
-    @JoinColumn(name = "rental_id")
-    private RentalEntity rental;
-
-    @Column(name = "amount")
-    private double amount;
-
-    @Column(name = "paymentDate")
-    private Date paymentDate;
+    private Staff staff;
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
+
+
 
 
 

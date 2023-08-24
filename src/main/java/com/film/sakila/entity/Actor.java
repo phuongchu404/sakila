@@ -1,25 +1,27 @@
 package com.film.sakila.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
-@Table(name = "language")
 @Data
-public class LanguageEntity{
+@Table(name = "actor")
+public class Actor{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "languageId")
+    @Column(name = "actorId")
     private int id;
 
-    @Column(name = "name", length = 20)
-    private String name;
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
 
     @Column(name = "lastUpdate")
     @UpdateTimestamp
