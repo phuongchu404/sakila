@@ -16,7 +16,7 @@ public class Category{
     @Column(name = "categoryId")
     private int id;
 
-    @Column(name = "name", length = 25)
+    @Column(name = "name", length = 25, nullable = false)
     private String name;
 
     @Column(name = "lastUpdate")

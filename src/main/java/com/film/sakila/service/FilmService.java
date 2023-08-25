@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 public interface FilmService {
-    List<String> getTitle();
+    List<FilmDto> getTitleRateCost();
     void insert(String title, int languageId, String rating, Set<String> specialFeature);
 
-    List<FilmDto> getAll();
+
 }

@@ -12,5 +12,5 @@ import java.util.List;
 public interface ActorRepository extends JpaRepository<Actor, Integer> {
     @Query(value = "select new com.film.sakila.data.FirstAndLastNameActor(a.firstName, a.lastName) " +
             "from Actor a ")
-    public List<FirstAndLastNameActor> getFirstAndLastNameActor();
+    List<FirstAndLastNameActor> getFirstAndLastNameActor();
 }

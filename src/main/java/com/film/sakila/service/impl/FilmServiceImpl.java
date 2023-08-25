@@ -10,6 +10,7 @@ import com.film.sakila.repository.LanguageRepository;
 import com.film.sakila.service.FilmService;
 import com.film.sakila.status.RatingEnum;
 import com.film.sakila.status.SpecialFeatureEnum;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +25,13 @@ public class FilmServiceImpl implements FilmService {
 
     @Autowired
     private LanguageRepository languageRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
     @Override
-    public List<String> getTitle() {
-        List<Film> list = filmRepository.findAll();
-        return list.stream()
-                .map(Film::getRating).
-                map(RatingEnum::getValue).
-                collect(Collectors.toList());
+    public List<FilmDto> getTitleRateCost() {
+        List<Film> films = filmRepository.findAll();
+        return films.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -49,14 +50,25 @@ public class FilmServiceImpl implements FilmService {
         filmRepository.save(film);
     }
 
-    @Override
-    public List<FilmDto> getAll() {
-        List<Film> filmEntities = filmRepository.findAll();
-        return filmEntities.stream().map(item->{
-            Set<String> specialFeatureEnums = item.getSpecialFeatures().stream().map(c->c.getValue()).collect(Collectors.toSet());
-            return new FilmDto(item.getId(), item.getTitle(), item.getDescription(),
-                    item.getReleaseYear(), item.getLanguage().getId(), item.getRentalDuration(), item.getRentalRate(), item.getLength(),
-                    item.getReplacementCost(), item.getRating().getValue(), specialFeatureEnums, item.getLastUpdate());
-        }).collect(Collectors.toList());
+//    @Override
+//    public List<FilmDto> getAll() {
+//        List<Film> filmEntities = filmRepository.findAll();
+//        return filmEntities.stream().map(item->{
+//            Set<String> specialFeatureEnums = item.getSpecialFeatures().stream().map(c->c.getValue()).collect(Collectors.toSet());
+//            return new FilmDto(item.getId(), item.getTitle(), item.getDescription(),
+//                    item.getReleaseYear(), item.getLanguage().getId(), item.getRentalDuration(), item.getRentalRate(), item.getLength(),
+//                    item.getReplacementCost(), item.getRating().getValue(), specialFeatureEnums, item.getLastUpdate());
+//        }).collect(Collectors.toList());
+//    }
+
+    private FilmDto convertToDto(Film film){
+        FilmDto filmDto = modelMapper.map(film, FilmDto.class);
+        Set<String> specialFeature = film.getSpecialFeatures().stream().map(SpecialFeatureEnum::getValue).collect(Collectors.toSet());
+        filmDto.setSpecialFeatures(specialFeature);
+        return filmDto;
+    }
+    private Film convertToEntity(FilmDto filmDto){
+        Film film = modelMapper.map(filmDto, Film.class);
+        return film;
     }
 }

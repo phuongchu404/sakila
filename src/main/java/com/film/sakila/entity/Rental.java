@@ -18,7 +18,7 @@ public class Rental {
     @Column(name = "rentalId")
     private int id;
 
-    @Column(name = "rentalDate")
+    @Column(name = "rentalDate", nullable = false)
     private Date rentalDate;
 
     @ManyToOne

@@ -1,5 +1,7 @@
 package com.film.sakila.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.film.sakila.common.Views;
 import lombok.Data;
 
 import java.text.SimpleDateFormat;
@@ -9,32 +11,37 @@ import java.util.Set;
 
 @Data
 public class FilmDto {
+
     private int id;
+
+    @JsonView(Views.FilmTitleRateCost.class)
     private String title;
+
     private String description;
+
     private Year releaseYear;
+
     private int languageId;
+
     private int rentalDuration;
+
+    @JsonView(Views.FilmTitleRateCost.class)
     private double rentalRate;
+
     private int length;
+
+    @JsonView(Views.FilmTitleRateCost.class)
     private double replacementCost;
+
     private String rating;
+
     private Set<String> specialFeatures;
+
     private String lastUpdate;
+
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public FilmDto(int id, String title, String description, Year releaseYear, int languageId, int rentalDuration, double rentalRate, int length, double replacementCost, String rating, Set<String> specialFeatures, Date lastUpdate) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.releaseYear = releaseYear;
-        this.languageId = languageId;
-        this.rentalDuration = rentalDuration;
-        this.rentalRate = rentalRate;
-        this.length = length;
-        this.replacementCost = replacementCost;
-        this.rating = rating;
-        this.specialFeatures = specialFeatures;
+    public void  setLastUpdate(Date lastUpdate){
         this.lastUpdate = simpleDateFormat.format(lastUpdate);
     }
 }

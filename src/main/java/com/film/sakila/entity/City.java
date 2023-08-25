@@ -1,5 +1,7 @@
 package com.film.sakila.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.film.sakila.common.Views;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,7 +19,7 @@ public class City{
     @Column(name = "cityId")
     private int id;
 
-    @Column(name = "city")
+    @Column(name = "city", length = 50, nullable = false)
     private String city;
 
     @Column(name = "lastUpdate")

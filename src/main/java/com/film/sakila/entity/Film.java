@@ -21,7 +21,7 @@ public class Film{
     @Column(name = "filmId")
     private int id;
 
-    @Column(name = "title", length = 128)
+    @Column(name = "title", length = 128, nullable = false)
     private String title;
 
     @Column(name = "description")
@@ -38,10 +38,10 @@ public class Film{
     @JoinColumn(name = "originalLanguageId")
     private Language originalLanguage;
 
-    @Column(name = "rentalDuration", columnDefinition = "TINYINT default 3")
+    @Column(name = "rentalDuration", columnDefinition = "TINYINT default 3", nullable = false)
     private int rentalDuration=3;
 
-    @Column(name = "rentalRate", columnDefinition = "DECIMAL(4,2) default 4.99")
+    @Column(name = "rentalRate", columnDefinition = "DECIMAL(4,2) default 4.99", nullable = false)
     private double rentalRate=4.99;
 
     @Column(name = "length")
@@ -51,7 +51,7 @@ public class Film{
     private double replacementCost=19.99D;
 
     @Column(name = "rating", columnDefinition = "ENUM('G','PG','PG-13','R','NC-17') default 'G'")
-    private RatingEnum rating = RatingEnum.NC_17;
+    private RatingEnum rating = RatingEnum.G;
 
     @Column(name = "specialFeatures", columnDefinition = "SET('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
     private Set<SpecialFeatureEnum> specialFeatures;

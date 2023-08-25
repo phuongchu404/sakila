@@ -21,10 +21,10 @@ public class Customer{
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @Column(name = "firstName", length = 45)
+    @Column(name = "firstName", length = 45, nullable = false)
     private String firstName;
 
-    @Column(name = "lastName", length = 45)
+    @Column(name = "lastName", length = 45, nullable = false)
     private String lastName;
 
     @Column(name = "email", length = 50)
@@ -34,10 +34,10 @@ public class Customer{
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @Column(name = "active")
-    private int active;
+    @Column(name = "active", nullable = false)
+    private int active=1;
 
-    @Column(name = "createDate")
+    @Column(name = "createDate", nullable = false)
     @CreationTimestamp
     private Date createDate;
 

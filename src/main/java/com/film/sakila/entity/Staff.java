@@ -37,10 +37,10 @@ public class Staff {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @Column(name = "active")
-    private int active;
+    @Column(name = "active", nullable = false)
+    private int active = 1;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String userName;
 
     @Column(name = "password")

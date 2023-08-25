@@ -1,5 +1,7 @@
 package com.film.sakila.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.film.sakila.common.Views;
 import com.film.sakila.request.InsertFilmRequest;
 import com.film.sakila.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,9 @@ public class FilmController {
     private FilmService filmService;
 
     @GetMapping("/title")
+    @JsonView(Views.FilmTitleRateCost.class)
     public ResponseEntity getTitle(){
-        return new ResponseEntity<>(filmService.getTitle(), HttpStatus.OK);
+        return new ResponseEntity<>(filmService.getTitleRateCost(), HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -25,8 +28,8 @@ public class FilmController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity getAll(){
-        return new ResponseEntity<>(filmService.getAll(),HttpStatus.OK);
-    }
+//    @GetMapping("/all")
+//    public ResponseEntity getAll(){
+//        return new ResponseEntity<>(filmService.getAll(),HttpStatus.OK);
+//    }
 }

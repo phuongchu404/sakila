@@ -19,13 +19,13 @@ public class Address{
     @Column(name = "addressId")
     private int id;
 
-    @Column(name = "address", length = 50)
+    @Column(name = "address", length = 50, nullable = false)
     private String address;
 
     @Column(name = "address2", length = 50)
     private String address2;
 
-    @Column(name = "district", length = 20)
+    @Column(name = "district", length = 20, nullable = false)
     private String district;
 
     @ManyToOne
@@ -35,13 +35,10 @@ public class Address{
     @Column(name = "postalCode", length = 10)
     private String postalCode;
 
-    @Column(name = "phone", length = 20)
+    @Column(name = "phone", length = 20, nullable = false)
     private String phone;
 
-//    @Column(name = "location", columnDefinition = "GEOMETRY")
-//    private Geometry location;
-
-    @Column(name = "location", columnDefinition = "GEOMETRY")
+    @Column(name = "location", columnDefinition = "GEOMETRY", nullable = false)
     private Point location;
 
     @Column(name = "lastUpdate")

@@ -29,10 +29,10 @@ public class Payment {
     @JoinColumn(name = "rental_id")
     private Rental rental;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     private double amount;
 
-    @Column(name = "paymentDate")
+    @Column(name = "paymentDate", nullable = false)
     private Date paymentDate;
 
     @Column(name = "lastUpdate")

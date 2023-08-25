@@ -18,7 +18,7 @@ public class Language{
     @Column(name = "languageId")
     private int id;
 
-    @Column(name = "name", length = 20)
+    @Column(name = "name", length = 20, nullable = false)
     private String name;
 
     @Column(name = "lastUpdate")

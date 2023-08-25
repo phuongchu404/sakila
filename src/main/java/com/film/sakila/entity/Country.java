@@ -16,7 +16,7 @@ public class Country{
     @Column(name = "countryId")
     private int id;
 
-    @Column(name = "country")
+    @Column(name = "country", nullable = false, length = 50)
     private String country;
 
     @Column(name = "lastUpdate")
