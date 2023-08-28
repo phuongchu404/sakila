@@ -32,4 +32,9 @@ public class FilmController {
 //    public ResponseEntity getAll(){
 //        return new ResponseEntity<>(filmService.getAll(),HttpStatus.OK);
 //    }
+
+    @GetMapping("/top/5")
+    public ResponseEntity getTopFiveFilm(){
+        return ResponseEntity.ok(filmService.getTopFiveFilm());
+    }
 }

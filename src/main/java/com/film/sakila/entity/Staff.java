@@ -50,5 +50,4 @@ public class Staff {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-
 }

@@ -26,5 +26,4 @@ public class Store {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-
 }

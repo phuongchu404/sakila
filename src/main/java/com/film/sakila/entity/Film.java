@@ -60,7 +60,4 @@ public class Film{
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-
-
-
 }

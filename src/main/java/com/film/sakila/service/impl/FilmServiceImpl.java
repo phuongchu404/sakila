@@ -2,6 +2,7 @@ package com.film.sakila.service.impl;
 
 import com.film.sakila.coverter.RatingEnumConverter;
 import com.film.sakila.coverter.SpecialFeatureEnumConverter;
+import com.film.sakila.data.TopFiveFilm;
 import com.film.sakila.dto.FilmDto;
 import com.film.sakila.entity.Film;
 import com.film.sakila.entity.Language;
@@ -48,6 +49,12 @@ public class FilmServiceImpl implements FilmService {
         film.setRating(ratingEnum);
         film.setSpecialFeatures(specialFeatureEnums);
         filmRepository.save(film);
+    }
+
+    @Override
+    public List<TopFiveFilm> getTopFiveFilm() {
+        List<TopFiveFilm> films = filmRepository.getTopFiveFilm();
+        return films;
     }
 
 //    @Override

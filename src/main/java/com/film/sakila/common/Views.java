@@ -7,7 +7,7 @@ public class Views {
     public interface Private{
 
     }
-    public interface Internal extends Public, Private{
+    public interface Internal extends Public{
 
     }
 

@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class City{
     @Column(name = "lastUpdate")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp lastUpdate;
+    private Date lastUpdate;
 
     @ManyToOne
     @JoinColumn(name = "country_id")

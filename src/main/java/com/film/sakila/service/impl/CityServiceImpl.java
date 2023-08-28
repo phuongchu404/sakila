@@ -7,6 +7,9 @@ import com.film.sakila.repository.CityRepository;
 import com.film.sakila.service.CityService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +23,13 @@ public class CityServiceImpl implements CityService {
     @Autowired
     private ModelMapper modelMapper;
     @Override
-    public List<CityDto> getAll() {
-        List<CityDto> cityDtos = cityRepository.findAll().stream()
-                .map(this::convertToDto).collect(Collectors.toList());
-        return cityDtos;
+    public Page<CityDto> getAll(int pageNo, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by("id").descending());
+        Page<City> cities = cityRepository.findAll(pageRequest);
+        return cities.map(this::convertToDto);
+//        List<CityDto> cityDtos = cityRepository.findAll(pageRequest).stream()
+//                .map(this::convertToDto).collect(Collectors.toList());
+//        return cityDtos;
 
     }
 
