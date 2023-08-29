@@ -37,4 +37,9 @@ public class FilmController {
     public ResponseEntity getTopFiveFilm(){
         return ResponseEntity.ok(filmService.getTopFiveFilm());
     }
+
+    @GetMapping("/average-rental")
+    public ResponseEntity averageRentalByCategory(@RequestParam int pageNo, @RequestParam int pageSize){
+        return ResponseEntity.ok(filmService.averageRentalByCategory(pageNo, pageSize));
+    }
 }

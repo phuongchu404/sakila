@@ -2,6 +2,7 @@ package com.film.sakila.service.impl;
 
 import com.film.sakila.coverter.RatingEnumConverter;
 import com.film.sakila.coverter.SpecialFeatureEnumConverter;
+import com.film.sakila.data.AverageRentalByCategory;
 import com.film.sakila.data.TopFiveFilm;
 import com.film.sakila.dto.FilmDto;
 import com.film.sakila.entity.Film;
@@ -13,8 +14,13 @@ import com.film.sakila.status.RatingEnum;
 import com.film.sakila.status.SpecialFeatureEnum;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -55,6 +61,14 @@ public class FilmServiceImpl implements FilmService {
     public List<TopFiveFilm> getTopFiveFilm() {
         List<TopFiveFilm> films = filmRepository.getTopFiveFilm();
         return films;
+    }
+
+    @Override
+    public List<AverageRentalByCategory> averageRentalByCategory(int pageNo, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by("name"));
+        Sort sort = Sort.by("avgRental").descending();
+        List<AverageRentalByCategory> page = filmRepository.averageRentalByCategory().stream().sorted(Comparator.comparingDouble((AverageRentalByCategory o1)->o1.getAvgRental()).reversed()).collect(Collectors.toList());
+        return page;
     }
 
 //    @Override

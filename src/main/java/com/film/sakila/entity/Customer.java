@@ -46,4 +46,5 @@ public class Customer{
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
+
 }
