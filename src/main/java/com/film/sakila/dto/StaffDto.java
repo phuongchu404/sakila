@@ -1,5 +1,7 @@
 package com.film.sakila.dto;
 
+import com.film.sakila.entity.Address;
+import com.film.sakila.entity.Store;
 import lombok.Data;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
@@ -12,13 +14,13 @@ import java.util.Date;
 
 @Data
 public class StaffDto {
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-    private int id;
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private Integer id;
     private String firstName;
     private String lastName;
-    private int addressId;
+    private Integer addressId;
     private String email;
-    private int storeId;
+    private Integer storeId;
     private String userName;
     private byte[] picture;
     private String lastUpdate;
@@ -35,5 +37,17 @@ public class StaffDto {
         this.picture = picture;
         this.lastUpdate = simpleDateFormat.format(lastUpdate);
     }
-//    private OutputStream outputStream;
+    public StaffDto() {
+
+    }
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = simpleDateFormat.format(lastUpdate);
+    }
+    public void setAddressId(Address address){
+        this.addressId =  address.getId();
+    }
+    public void setStoreId(Store store){
+        this.storeId = store.getId();
+    }
+    //    private OutputStream outputStream;
 }
