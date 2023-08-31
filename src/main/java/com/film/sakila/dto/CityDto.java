@@ -21,9 +21,6 @@ public class CityDto {
     private int countryId;
 
 
-    public String getLastUpdate() {
-        return lastUpdate;
-    }
 
     public void setLastUpdate(Date lastUpdate){
         this.lastUpdate = simpleDateFormat.format(lastUpdate);

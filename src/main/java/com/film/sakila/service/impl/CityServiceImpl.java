@@ -1,6 +1,5 @@
 package com.film.sakila.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.film.sakila.dto.CityDto;
 import com.film.sakila.entity.City;
 import com.film.sakila.repository.CityRepository;
@@ -12,9 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class CityServiceImpl implements CityService {

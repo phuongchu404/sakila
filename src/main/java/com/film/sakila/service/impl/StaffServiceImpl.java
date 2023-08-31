@@ -58,26 +58,12 @@ public class StaffServiceImpl implements StaffService {
         Staff staff = modelMapper.map(request, Staff.class);
         staff.setAddress(address);
         staff.setStore(store);
-//        staff.setFirstName(request.getFirstName());
-//        staff.setLastName(request.getLastName());
-//        staff.setUserName(request.getUserName());
-//        staff.setPicture(request.getPicture());
         return staff;
     }
     private StaffDto convertToDto(Staff staff){
-
         StaffDto staffDto = modelMapper.map(staff, StaffDto.class);
-        staffDto.setAddressId(staff.getAddress());
-        staffDto.setStoreId(staff.getStore());
-//        StaffDto staffDto = new StaffDto();
-//        staffDto.setPicture(staff.getPicture());
-//        staffDto.setId(staff.getId());
-//        staffDto.setFirstName(staff.getFirstName());
-//        staffDto.setLastName(staff.getLastName());
-//        staffDto.setAddressId(staff.getAddress().getId());
-//        staffDto.setStoreId(staff.getStore().getId());
-//        staffDto.setUserName(staff.getUserName());
-//        staffDto.setLastUpdate(staff.getLastUpdate());
+//        staffDto.setAddressId(staff.getAddress());
+//        staffDto.setStoreId(staff.getStore());
         return staffDto;
     }
 }
