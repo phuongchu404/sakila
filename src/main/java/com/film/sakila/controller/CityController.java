@@ -1,7 +1,5 @@
 package com.film.sakila.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.film.sakila.common.Views;
 import com.film.sakila.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,4 +19,5 @@ public class CityController {
     public ResponseEntity getAll(@RequestParam int pageNo, @RequestParam int pageSize){
         return ResponseEntity.ok(cityService.getAll(pageNo, pageSize));
     }
+
 }

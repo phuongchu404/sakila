@@ -15,4 +15,6 @@ public interface FilmService {
 
     List<AverageRentalByCategory> averageRentalByCategory(int pageNo, int pageSize);
 
+    List<String> getTitleFilm(int length);
+
 }

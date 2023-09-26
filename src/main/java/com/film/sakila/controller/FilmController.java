@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/admin/film")
 public class FilmController {
 
-    @Autowired
-    private FilmService filmService;
+    private final FilmService filmService;
+    public FilmController(FilmService filmService){
+        this.filmService =filmService;
+    }
 
     @GetMapping("/title")
     @JsonView(Views.FilmTitleRateCost.class)
@@ -28,11 +30,6 @@ public class FilmController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-//    @GetMapping("/all")
-//    public ResponseEntity getAll(){
-//        return new ResponseEntity<>(filmService.getAll(),HttpStatus.OK);
-//    }
-
     @GetMapping("/top/5")
     public ResponseEntity getTopFiveFilm(){
         return ResponseEntity.ok(filmService.getTopFiveFilm());
@@ -41,5 +38,10 @@ public class FilmController {
     @GetMapping("/average-rental")
     public ResponseEntity averageRentalByCategory(@RequestParam int pageNo, @RequestParam int pageSize){
         return ResponseEntity.ok(filmService.averageRentalByCategory(pageNo, pageSize));
+    }
+
+    @GetMapping("/find/title")
+    public ResponseEntity getTitleFilm(@RequestParam int length){
+        return ResponseEntity.status(HttpStatus.OK).body(filmService.getTitleFilm(length));
     }
 }

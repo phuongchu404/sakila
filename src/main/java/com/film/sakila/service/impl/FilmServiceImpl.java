@@ -27,14 +27,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class FilmServiceImpl implements FilmService {
-    @Autowired
-    private FilmRepository filmRepository;
-
-    @Autowired
-    private LanguageRepository languageRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private final FilmRepository filmRepository;
+    private final LanguageRepository languageRepository;
+    private final ModelMapper modelMapper;
+    public FilmServiceImpl(FilmRepository filmRepository, LanguageRepository languageRepository, ModelMapper modelMapper){
+        this.filmRepository =filmRepository;
+        this.languageRepository = languageRepository;
+        this.modelMapper = modelMapper;
+    }
     @Override
     public List<FilmDto> getTitleRateCost() {
         List<Film> films = filmRepository.findAll();
@@ -69,6 +69,12 @@ public class FilmServiceImpl implements FilmService {
         Sort sort = Sort.by("avgRental").descending();
         List<AverageRentalByCategory> page = filmRepository.averageRentalByCategory().stream().sorted(Comparator.comparingDouble((AverageRentalByCategory o1)->o1.getAvgRental()).reversed()).collect(Collectors.toList());
         return page;
+    }
+
+    @Override
+    public List<String> getTitleFilm(int length) {
+        List<String> titles = filmRepository.getTitleFilm(length, RatingEnum.PG_13);
+        return titles;
     }
 
 //    @Override

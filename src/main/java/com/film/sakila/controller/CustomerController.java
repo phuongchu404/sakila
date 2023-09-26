@@ -23,4 +23,6 @@ public class CustomerController {
                                                        @RequestParam int pageNo, @RequestParam int pageSize){
         return ResponseEntity.ok(customerService.getInformationCustomerRented(year, month, pageNo, pageSize));
     }
+
+
 }
