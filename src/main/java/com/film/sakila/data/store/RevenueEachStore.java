@@ -1,8 +1,11 @@
-package com.film.sakila.data;
+package com.film.sakila.data.store;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class RevenueEachStore {
     private int storeId;
     private String address;

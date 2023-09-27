@@ -26,7 +26,6 @@ public class AddressServiceImpl implements AddressService {
     public static Geometry wktToGeometry(String wellKnowText) throws org.locationtech.jts.io.ParseException {
         return new WKTReader().read(wellKnowText);
     }
-
     @Override
     public List<AddressDto> getAll() {
         return addressRepository.findAll().stream().map(item-> {

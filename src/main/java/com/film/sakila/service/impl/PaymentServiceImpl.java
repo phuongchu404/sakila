@@ -1,13 +1,12 @@
 package com.film.sakila.service.impl;
 
-import com.film.sakila.data.RevenuePerStore;
+import com.film.sakila.data.payment.RevenuePerStore;
 import com.film.sakila.repository.PaymentRepository;
 import com.film.sakila.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;

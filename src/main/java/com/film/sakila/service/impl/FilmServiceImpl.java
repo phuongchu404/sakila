@@ -2,8 +2,8 @@ package com.film.sakila.service.impl;
 
 import com.film.sakila.coverter.RatingEnumConverter;
 import com.film.sakila.coverter.SpecialFeatureEnumConverter;
-import com.film.sakila.data.AverageRentalByCategory;
-import com.film.sakila.data.TopFiveFilm;
+import com.film.sakila.data.film.AverageRentalByCategory;
+import com.film.sakila.data.film.TopFiveFilm;
 import com.film.sakila.dto.FilmDto;
 import com.film.sakila.entity.Film;
 import com.film.sakila.entity.Language;
@@ -13,10 +13,7 @@ import com.film.sakila.service.FilmService;
 import com.film.sakila.status.RatingEnum;
 import com.film.sakila.status.SpecialFeatureEnum;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 

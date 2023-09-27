@@ -1,4 +1,4 @@
-package com.film.sakila.data;
+package com.film.sakila.data.actor;
 
 import lombok.Data;
 import lombok.Getter;

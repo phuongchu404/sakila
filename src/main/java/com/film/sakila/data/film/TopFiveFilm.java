@@ -1,4 +1,4 @@
-package com.film.sakila.data;
+package com.film.sakila.data.film;
 
 import com.film.sakila.status.RatingEnum;
 import com.film.sakila.status.SpecialFeatureEnum;

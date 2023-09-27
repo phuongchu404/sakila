@@ -1,9 +1,8 @@
 package com.film.sakila.service;
 
-import com.film.sakila.data.AverageRentalByCategory;
-import com.film.sakila.data.TopFiveFilm;
+import com.film.sakila.data.film.AverageRentalByCategory;
+import com.film.sakila.data.film.TopFiveFilm;
 import com.film.sakila.dto.FilmDto;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Set;

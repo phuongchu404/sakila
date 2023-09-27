@@ -1,7 +1,7 @@
 package com.film.sakila.service;
 
-import com.film.sakila.data.ActorParticipatedMoreThanTwentyFilms;
-import com.film.sakila.data.InformationActor;
+import com.film.sakila.data.actor.ActorParticipatedMoreThanTwentyFilms;
+import com.film.sakila.data.actor.InformationActor;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

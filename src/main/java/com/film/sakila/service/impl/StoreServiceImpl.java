@@ -1,12 +1,11 @@
 package com.film.sakila.service.impl;
 
-import com.film.sakila.data.RevenueEachStore;
+import com.film.sakila.data.store.RevenueEachStore;
 import com.film.sakila.repository.StoreRepository;
 import com.film.sakila.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
