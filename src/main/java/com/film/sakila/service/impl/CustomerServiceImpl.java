@@ -2,6 +2,7 @@ package com.film.sakila.service.impl;
 
 import com.film.sakila.data.customer.CustomerRentalByCategory;
 import com.film.sakila.data.customer.InformationCustomerRented;
+import com.film.sakila.data.customer.NameCustomerRentedMovieMultipleTime;
 import com.film.sakila.data.customer.TopTenMostRevenue;
 import com.film.sakila.entity.Customer;
 import com.film.sakila.repository.CustomerRepository;
@@ -48,5 +49,11 @@ public class CustomerServiceImpl implements CustomerService {
         PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
         Page<CustomerRentalByCategory> page = customerRepository.getCustomerRentalByCategory(pageRequest);
         return page;
+    }
+
+    @Override
+    public List<NameCustomerRentedMovieMultipleTime> getNameCustomerRentedMovieMultipleTime() {
+        List<NameCustomerRentedMovieMultipleTime> list = customerRepository.getNameCustomerRentedMovieMultipleTime();
+        return list;
     }
 }

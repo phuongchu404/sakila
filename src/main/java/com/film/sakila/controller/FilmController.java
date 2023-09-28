@@ -44,4 +44,9 @@ public class FilmController {
     public ResponseEntity getTitleFilm(@RequestParam int length){
         return ResponseEntity.status(HttpStatus.OK).body(filmService.getTitleFilm(length));
     }
+
+    @GetMapping("/title-not-return-date")
+    public ResponseEntity getTitleNotReturnDate(){
+        return new ResponseEntity(filmService.getTitleNotReturnDate(), HttpStatus.OK);
+    }
 }

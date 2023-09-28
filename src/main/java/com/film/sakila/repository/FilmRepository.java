@@ -29,4 +29,15 @@ public interface FilmRepository extends JpaRepository<Film, Integer> {
     @Query(value = "select f.title from Film f " +
             "where f.length > :length and f.rating=:rating ")
     List<String> getTitleFilm(@Param("length")int length, @Param("rating") RatingEnum rating);
+    @Query(value = "select f.title from Film f " +
+            "inner join Inventory i on i.film = f " +
+            "inner join Rental r on r.inventory = i " +
+            "where r.returnDate is null " +
+            "and exists (select fi.id from Rental ren " +
+                        "inner join ren.inventory inven " +
+                        "inner join inven.film fi " +
+                        "where f.id = fi.id and ren.returnDate is not null) " +
+            "group by f.id " +
+            "order by f.id")
+    List<String> getTitleNotReturnDate();
 }

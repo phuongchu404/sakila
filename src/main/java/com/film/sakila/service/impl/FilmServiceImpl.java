@@ -74,6 +74,12 @@ public class FilmServiceImpl implements FilmService {
         return titles;
     }
 
+    @Override
+    public List<String> getTitleNotReturnDate() {
+        List<String> titles = filmRepository.getTitleNotReturnDate();
+        return titles;
+    }
+
 //    @Override
 //    public List<FilmDto> getAll() {
 //        List<Film> filmEntities = filmRepository.findAll();

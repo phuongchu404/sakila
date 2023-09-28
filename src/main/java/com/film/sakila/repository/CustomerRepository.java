@@ -2,6 +2,7 @@ package com.film.sakila.repository;
 
 import com.film.sakila.data.customer.CustomerRentalByCategory;
 import com.film.sakila.data.customer.InformationCustomerRented;
+import com.film.sakila.data.customer.NameCustomerRentedMovieMultipleTime;
 import com.film.sakila.data.customer.TopTenMostRevenue;
 import com.film.sakila.entity.Customer;
 import org.springframework.data.domain.Page;
@@ -39,5 +40,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             "group by c.id, ca.id " +
             "order by ca.id")
     Page<CustomerRentalByCategory> getCustomerRentalByCategory(Pageable pageable);
+    @Query(value = "select new com.film.sakila.data.customer.NameCustomerRentedMovieMultipleTime(c.firstName, c.lastName,count(*)) from Customer c " +
+            "inner join Rental r on r.customer = c " +
+            "inner join r.inventory i " +
+            "inner join i.film f " +
+            "group by c.id, f.id " +
+            "having count(*)>1")
+    List<NameCustomerRentedMovieMultipleTime> getNameCustomerRentedMovieMultipleTime();
 
 }
