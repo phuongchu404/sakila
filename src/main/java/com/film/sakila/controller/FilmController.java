@@ -1,6 +1,10 @@
 package com.film.sakila.controller;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.Nulls;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.film.sakila.common.Views;
 import com.film.sakila.request.InsertFilmRequest;
 import com.film.sakila.service.FilmService;
@@ -14,8 +18,11 @@ import org.springframework.web.bind.annotation.*;
 public class FilmController {
 
     private final FilmService filmService;
-    public FilmController(FilmService filmService){
-        this.filmService =filmService;
+    private final ObjectMapper objectMapper;
+    public FilmController(FilmService filmService, ObjectMapper objectMapper){
+        this.filmService = filmService;
+        this.objectMapper = objectMapper;
+//        this.objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
     @GetMapping("/title")
@@ -48,5 +55,16 @@ public class FilmController {
     @GetMapping("/title-not-return-date")
     public ResponseEntity getTitleNotReturnDate(){
         return new ResponseEntity(filmService.getTitleNotReturnDate(), HttpStatus.OK);
+    }
+
+    @GetMapping("/title-rented-by-multiple-customer")
+    public ResponseEntity getTitleRentedByMultipleCustomer(@RequestParam int count){
+        return new ResponseEntity(filmService.getTitleRentedByMultipleCustomer(count), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/all")
+    @JsonSetter(nulls = Nulls.SET)
+    public ResponseEntity getAll(@RequestParam int pageNo,@RequestParam int pageSize, @RequestParam String sortBy){
+        return ResponseEntity.ok(filmService.getAll(pageNo, pageSize, sortBy));
     }
 }

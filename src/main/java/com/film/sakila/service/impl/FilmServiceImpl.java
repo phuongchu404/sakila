@@ -13,6 +13,7 @@ import com.film.sakila.service.FilmService;
 import com.film.sakila.status.RatingEnum;
 import com.film.sakila.status.SpecialFeatureEnum;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -78,6 +79,26 @@ public class FilmServiceImpl implements FilmService {
     public List<String> getTitleNotReturnDate() {
         List<String> titles = filmRepository.getTitleNotReturnDate();
         return titles;
+    }
+
+    @Override
+    public List<String> getTitleRentedByMultipleCustomer(int count) {
+        List<String> list = filmRepository.getTitleRentedByMultipleCustomer(count);
+        return list;
+    }
+
+    @Override
+    public Page<Film> getAll(int pageNo, int pageSize, String sortBy) {
+//        Sort sort = Sort.by("title");
+//        switch (sortBy){
+//            case 1: sort = sort.descending(); break;
+//            default:
+//                sort = sort.ascending();
+//                break;
+//        }
+        Sort sort = sortBy.equals(1) ? Sort.by("title").descending() : Sort.by("title").ascending();
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize, sort);
+        return filmRepository.findAll(pageRequest);
     }
 
 //    @Override

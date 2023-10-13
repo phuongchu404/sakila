@@ -28,7 +28,7 @@ public class Film{
     private String description;
 
     @Column(name = "releaseYear")
-    private Year releaseYear;
+    private double releaseYear;
 
     @ManyToOne
     @JoinColumn(name = "languageId")

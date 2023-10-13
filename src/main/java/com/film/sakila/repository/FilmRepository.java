@@ -4,6 +4,8 @@ import com.film.sakila.data.film.AverageRentalByCategory;
 import com.film.sakila.data.film.TopFiveFilm;
 import com.film.sakila.entity.Film;
 import com.film.sakila.status.RatingEnum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -40,4 +42,20 @@ public interface FilmRepository extends JpaRepository<Film, Integer> {
             "group by f.id " +
             "order by f.id")
     List<String> getTitleNotReturnDate();
+    @Query(value = "select f.title from Film f " +
+            "inner join Inventory i on i.film = f " +
+            "inner join Rental r on r.inventory = i " +
+            "inner join r.customer c " +
+            "where not exists(select 1 from Rental ren " +
+                            "inner join r.inventory inven " +
+                            "inner join i.film fi " +
+                            "inner join r.customer cus " +
+                            "where f.id = fi.id " +
+                            "group by cus.id " +
+                            "having count(*)>1) " +
+            "group by f.id " +
+            "having count(*)>:count")
+    List<String> getTitleRentedByMultipleCustomer(@Param("count") int count);
+
+    Page<Film> findAll(Pageable pageable);
 }
