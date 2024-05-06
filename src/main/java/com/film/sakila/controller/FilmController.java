@@ -11,6 +11,7 @@ import com.film.sakila.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -48,11 +49,13 @@ public class FilmController {
     }
 
     @GetMapping("/find/title")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity getTitleFilm(@RequestParam int length){
         return ResponseEntity.status(HttpStatus.OK).body(filmService.getTitleFilm(length));
     }
 
     @GetMapping("/title-not-return-date")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity getTitleNotReturnDate(){
         return new ResponseEntity(filmService.getTitleNotReturnDate(), HttpStatus.OK);
     }
