@@ -7,6 +7,7 @@ import com.film.sakila.data.actor.RevenueByActor;
 import com.film.sakila.repository.ActorRepository;
 import com.film.sakila.service.ActorService;
 import com.film.sakila.status.RatingEnum;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,15 @@ import java.util.List;
 
 @Service
 public class ActorServiceImpl implements ActorService {
-    private final ActorRepository actorRepository;
-    public ActorServiceImpl(ActorRepository actorRepository){
-        this.actorRepository = actorRepository;
-    }
+    @Autowired
+    private ActorRepository actorRepository;
+
+//    public ActorServiceImpl(ActorRepository actorRepository){
+//        this.actorRepository = actorRepository;
+//    }
     @Override
     public List<InformationActor> getFirstAndLastNameActor() {
+
         return actorRepository.getFirstAndLastNameActor();
     }
     @Override
