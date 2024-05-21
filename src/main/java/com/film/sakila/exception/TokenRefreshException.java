@@ -1,6 +1,5 @@
 package com.film.sakila.exception;
 
-import com.film.sakila.jwt.response.TokenRefreshResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

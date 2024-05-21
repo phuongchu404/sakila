@@ -2,10 +2,8 @@ package com.film.sakila.service.impl;
 
 import com.film.sakila.entity.RefreshToken;
 import com.film.sakila.exception.TokenRefreshException;
-import com.film.sakila.jwt.response.TokenRefreshResponse;
 import com.film.sakila.repository.RefreshTokenRepository;
 import com.film.sakila.repository.UserRepository;
-import com.film.sakila.repository.UserRoleRepository;
 import com.film.sakila.service.RefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,9 +22,6 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
-
-    @Autowired
-    private UserRoleRepository userRoleRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -54,7 +49,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             refreshTokenRepository.delete(token);
             throw new TokenRefreshException(token.getToken(),"Token refresh token was expired");
         }
-        return null;
+        return token;
     }
 
     @Override

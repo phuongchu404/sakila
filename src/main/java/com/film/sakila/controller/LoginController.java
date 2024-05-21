@@ -1,17 +1,22 @@
 package com.film.sakila.controller;
 
+import com.film.sakila.entity.RefreshToken;
 import com.film.sakila.entity.Role;
 import com.film.sakila.entity.User;
 import com.film.sakila.entity.UserRole;
+import com.film.sakila.exception.TokenRefreshException;
 import com.film.sakila.jwt.JwtUtils;
+import com.film.sakila.jwt.request.TokenRefreshRequest;
+import com.film.sakila.jwt.response.JwtResponse;
 import com.film.sakila.jwt.response.MessageResponse;
+import com.film.sakila.jwt.response.TokenRefreshResponse;
 import com.film.sakila.repository.RoleRepository;
 import com.film.sakila.repository.UserRepository;
 import com.film.sakila.repository.UserRoleRepository;
 import com.film.sakila.request.LoginRequest;
-import com.film.sakila.jwt.response.JwtResponse;
 import com.film.sakila.jwt.security.UserDetailsImpl;
 import com.film.sakila.request.RegisterRequest;
+import com.film.sakila.service.RefreshTokenService;
 import com.film.sakila.status.ERole;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -52,18 +57,37 @@ public class LoginController {
     @Autowired
     private JwtUtils jwtUtils;
 
+    @Autowired
+    private RefreshTokenService refreshTokenService;
+
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
+//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        String jwt = jwtUtils.generateJwtToken(authentication);
+//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//        List<String> roles = userDetails.getAuthorities()
+//                                        .stream().map(item -> item.getAuthority())
+//                                        .collect(Collectors.toList());
+//        return null;
+//        //return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles ));
+//    }
+
+    // refresh token
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String jwt = jwtUtils.generateJwtToken(userDetails);
         List<String> roles = userDetails.getAuthorities()
-                                        .stream().map(item -> item.getAuthority())
-                                        .collect(Collectors.toList());
-        return null;
-        //return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles ));
+                .stream().map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+        //return null;
+        return ResponseEntity.ok(new JwtResponse(jwt,refreshToken.getToken(), userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles ));
     }
+
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest registerRequest){
         // check username and email
@@ -128,6 +152,16 @@ public class LoginController {
         }
         userRoleRepository.saveAll(userRoles);
         return  ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request){
+        String requestRefreshToken = request.getRefreshToken();
+        return refreshTokenService.findByToken(requestRefreshToken).map(refreshTokenService::verifyExpiration).map(RefreshToken::getUser)
+                .map(user ->{
+                    String token = jwtUtils.generateTokenFromUsername(user.getUserName());
+                    return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+                }).orElseThrow(()-> new TokenRefreshException(requestRefreshToken, "Refresh token not in database"));
     }
 //    public record LoginRequest(String username, String password){}
 }
