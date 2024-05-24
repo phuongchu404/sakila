@@ -22,6 +22,7 @@ import com.film.status.ERole;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -59,6 +60,9 @@ public class LoginController {
 
     @Autowired
     private RefreshTokenService refreshTokenService;
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
 //    @PostMapping("/login")
 //    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){

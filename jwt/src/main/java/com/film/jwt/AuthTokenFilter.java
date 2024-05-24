@@ -48,8 +48,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 //        }
 //        return null;
         String headerAuth = request.getHeader("access-token");
+
         if(StringUtils.hasText(headerAuth)){
-            return headerAuth;
+            String token = jwtUtils.getToken(headerAuth);
+            jwtUtils.refreshToken(token);
+            return token;
         }
         return null;
     }

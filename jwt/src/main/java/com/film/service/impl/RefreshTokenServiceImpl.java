@@ -35,22 +35,14 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public RefreshToken createRefreshToken(int userId) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime()+ refreshExpirationMs);
-        Optional<RefreshToken> refresh =refreshTokenRepository.findByUserId(userId);
-        if(refresh.isPresent()) {
-            RefreshToken refreshTokenAdd =refresh.get();
-            refreshTokenAdd.setUser(userRepository.findById(userId).get());
-            refreshTokenAdd.setExpiryDate(expiryDate);
-            refreshTokenAdd.setToken(UUID.randomUUID().toString());
-            refreshTokenAdd = refreshTokenRepository.save(refreshTokenAdd);
-            return refreshTokenAdd;
-        }else{
-            RefreshToken refreshToken = new RefreshToken();
-            refreshToken.setUser(userRepository.findById(userId).get());
-            refreshToken.setExpiryDate(expiryDate);
-            refreshToken.setToken(UUID.randomUUID().toString());
-            refreshToken = refreshTokenRepository.save(refreshToken);
-            return refreshToken;
-        }
+        RefreshToken refresh = refreshTokenRepository.findByUserId(userId).get();
+        refreshTokenRepository.delete(refresh);
+        RefreshToken refreshToken = new RefreshToken();
+        refreshToken.setUser(userRepository.findById(userId).get());
+        refreshToken.setExpiryDate(expiryDate);
+        refreshToken.setToken(UUID.randomUUID().toString());
+        refreshToken = refreshTokenRepository.save(refreshToken);
+        return refreshToken;
 
     }
 

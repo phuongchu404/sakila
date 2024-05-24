@@ -1,16 +1,21 @@
 package com.film.jwt;
 
+import com.film.exception.TokenException;
 import com.film.jwt.security.UserDetailsImpl;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.*;
+import org.springframework.util.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -21,6 +26,9 @@ public class JwtUtils {
 
     @Value("${app.security.jwtExpiration}")
     private int jwtExpiration;
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
 //    public String generateJwtToken(Authentication authentication){
 //        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -41,12 +49,14 @@ public class JwtUtils {
 
     // refresh token
     public String generateTokenFromUsername(String username){
-        return Jwts.builder()
+        String token = Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime()+jwtExpiration))
+//                .setExpiration(new Date(new Date().getTime()+jwtExpiration))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
+        redisTemplate.opsForValue().set(token, token, jwtExpiration, TimeUnit.SECONDS);
+        return token;
     }
 
     //refresh token
@@ -57,7 +67,6 @@ public class JwtUtils {
 
     private Key key(){
 //        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
-        byte[] test = Encoders.BASE64.encode(jwtSecret.getBytes(StandardCharsets.UTF_8)).getBytes();
         return Keys.hmacShaKeyFor(Encoders.BASE64.encode(jwtSecret.getBytes(StandardCharsets.UTF_8)).getBytes());
     }
 //    public String getUserNameFromJwtToken(String token) {
@@ -101,5 +110,17 @@ public class JwtUtils {
             log.error("JWT claims string is empty: {}",e.getMessage());
         }
         return false;
+    }
+
+    public void refreshToken(String token) {
+        redisTemplate.expire(token,jwtExpiration, TimeUnit.SECONDS);
+    }
+
+    public String getToken(String token) {
+        String tokenInRedis = redisTemplate.opsForValue().get(token);
+        if(StringUtils.isEmpty(tokenInRedis)) {
+            throw  new TokenException(token, "Not found");
+        }
+        return tokenInRedis;
     }
 }
