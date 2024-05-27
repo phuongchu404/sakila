@@ -52,10 +52,11 @@ public class JwtUtils {
         String token = Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-//                .setExpiration(new Date(new Date().getTime()+jwtExpiration))
+                .setExpiration(new Date(new Date().getTime()+jwtExpiration))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
-        redisTemplate.opsForValue().set(token, token, jwtExpiration, TimeUnit.SECONDS);
+//        redisTemplate.opsForValue().set(token, token, jwtExpiration, TimeUnit.SECONDS);
+        log.error("token: {}", token);
         return token;
     }
 

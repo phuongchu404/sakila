@@ -80,6 +80,8 @@ public class LoginController {
     // refresh token
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
+        log.info("login request: {}", loginRequest);
+       // log.debug("login request: {}", loginRequest);
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -88,6 +90,7 @@ public class LoginController {
                 .stream().map(item -> item.getAuthority())
                 .collect(Collectors.toList());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+        log.warn("login successful", refreshToken);
         //return null;
         return ResponseEntity.ok(new JwtResponse(jwt,refreshToken.getToken(), userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles ));
     }
