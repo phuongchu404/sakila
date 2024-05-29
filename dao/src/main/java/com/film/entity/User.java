@@ -46,4 +46,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updateTime;
 
+    @Column(name = "reset_password_token", length= 30)
+    private String resetPasswordToken;
+
 }

@@ -5,6 +5,7 @@ import com.film.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -30,6 +31,14 @@ public class SecurityConfig {
 
     @Autowired
     private AuthEntryPointJwt authEntryPointJwt;
+    
+    private final String[] endPoints = {
+            "/api/auth/**",
+            "/api/test/**",
+            "/email/**",
+            "/forgot-password",
+            "/reset-password"
+    };
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter(){
@@ -60,8 +69,7 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPointJwt))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->{
-                    auth.requestMatchers("/api/auth/**").permitAll()
-                            .requestMatchers("/api/test/**").permitAll()
+                    auth.requestMatchers(endPoints).permitAll()
                             .anyRequest().authenticated();
                 });
         http.authenticationProvider(authenticationProvider());
